@@ -1,6 +1,7 @@
 
 const searchInput = document.querySelector('.search-input')
 const searchResults = document.querySelector('.search-results')
+const selected = document.querySelector('.selected')
 
 const debounce = (fn, debounceTime) => {
   let timeout
@@ -14,8 +15,7 @@ const debounce = (fn, debounceTime) => {
 };
 
 function listenerMode(target, element) {
-  const selected = document.querySelector('.selected')
-  target.addEventListener('click', (e) => {
+  target.addEventListener('click', () => {
 
     searchInput.value = ''
     searchResults.innerHTML = ''
@@ -60,14 +60,7 @@ function listenerMode(target, element) {
 }
 
 function updateSearchHints(reps) {
-  if (reps.length === 0) {
-    const undefMess = document.createElement('p')
-    undefMess.classList.add('undefined-message')
-    undefMess.textContent = 'Ничего не найдено :('
-
-    searchResults.appendChild(undefMess)
-  }
-
+  
   searchResults.innerHTML = ''
   reps.forEach(el => {
     const hint = document.createElement('li')
@@ -79,10 +72,7 @@ function updateSearchHints(reps) {
 }
 
 const debouncedSearch = debounce((e) => {
-  if (e.target.value === '') {
-    searchResults.innerHTML = ''
-    return
-  } else if (e.target.value.trim() == '') {
+  if (e.target.value.trim() == '') {
     searchResults.innerHTML = ''
     return
   }
